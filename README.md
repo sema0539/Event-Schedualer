@@ -5,4 +5,4 @@ This project is intended to be an event tracking application for the CU Boulder 
 
 I mostly worked on many different front end features such as the landing page, registration page, and navigation bar. In addtion, I helped to implement some of the backend using SQL and also helped use NodeJS to connect the front end with the back end database.
 
-Note: this app was hosted on heroku but its dependencies were not updated so it is no loner there.
+Note: this app was hosted on heroku but its currently inactive.
