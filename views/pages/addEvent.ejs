@@ -1,0 +1,87 @@
+<%- include ("../partials/header") %>
+  <body>
+    <%- include ("../partials/navbar") %>
+    <div class="w3-container">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-center modal-title">Add Event</h4>
+          </div>
+          <form action="/addEvent" method="post" class="modal-body">
+          <% if (!logged_in) {
+            var msg = "<p>Must be signed in to add events</p>"; %>
+            <%- msg %>
+          <% } %>
+            <div class="form-group">
+              <input type="text" class="form-control" id="eventName" name="eventName" placeholder="Event Name"
+              required="required">
+            </div>
+            <div class="form-group">
+              <input type="datetime-local" class="form-control" id="date" name="date" required="required">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="location" name="location" placeholder="Location"
+              required="required">
+            </div>
+            <!-- <div class="form-group">
+              <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact Email"
+              required="required">
+            </div> -->
+            <div class="form-group">
+              <textarea class="form-control" id="description" name="description" rows="4" placeholder="Event Description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Organization</label>
+              <select class="form-control" id="organization" name="organization" required="required">
+              <% var organizations = '<option value="-1">None</option>'; 
+              if (data) {
+                data.forEach(function(org) {
+                  organizations += '<option value='+org.organization_id+'>'+org.org_name+'</option>';
+                }) %>
+              <% } %>
+              <%- organizations %>
+              </select>
+            </div>
+            <div class="form-group">
+              <a id="addOrganization" class="btn btn-primary" href="/registration">Add Organization</a>
+            </div>
+            <div class="checkbox">
+              <label for="checkbox">Event Tags</label><br>
+              <label><input type="checkbox" name="t_academic" value="1">Academic</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="t_clubs" value="2">Clubs</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="t_sports" value="4">Sports</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="t_fundraising" value="8">Fundraising</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="t_music" value="16">Music</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="t_talks" value="32">Talks</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="t_other" value="64">Other</label>
+            </div>
+            <br>
+            <div class="form-group">
+              <button id="my_submit_button" class="btn btn-primary btn-block login-btn"
+              <% if (!logged_in) { %>
+                <%- "disabled" %>
+              <% } %>
+              >Create Event</button>
+            </div>
+            <% if (response) {
+              var msg = "<p>"+response+"</p>"; %>
+              <%- msg %>
+           <% } %>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

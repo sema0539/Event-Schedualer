@@ -1,0 +1,92 @@
+<%- include ("../partials/header") %>
+  <body style="background-color:#eee;">
+    <%- include ("../partials/navbar") %>
+    <% function parseDate(time) {
+      var date = new Date(time);
+      var final = '';
+      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      final = days[date.getDay()];
+      final += ", " + months[date.getMonth()];
+      final += " " + date.getDate();
+      final += ", " + date.getFullYear();
+      var hour = date.getHours();
+      console.log(hour);
+      if (hour == 0) {
+        hour = 12;
+      } else if (hour > 12) {
+        hour -= 12;
+      }
+      console.log(hour);
+      var pf = 'AM';
+      if (date.getHours() > 11) {
+        pf = 'PM';
+      }
+      final += " at " + hour;
+      var minutes = date.getMinutes();
+      if (minutes == 0) {
+        minutes = "00";
+      }
+      final += ":" +minutes+ " " + pf;
+      return final;
+    } %>
+    <div class="bg" style="text-align:center">
+      <div class="container">
+        <img src="../resources/img/cu-campus.jpg" alt="CU campus">
+        <div class="text-block">
+          <h1>The CU Boulder Event Tracker</h1>
+        </div>
+      </div>
+      <style media="screen">
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+        .container {
+          max-width: 100%;
+          position: relative;
+        }
+        .text-block {
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          background-color: black;
+          color: white;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      </style>
+      <%
+        var header="No Upcoming Events";
+        if (data) {
+          header="Upcoming Events"
+        }
+      %>
+      <div style="text-align:center;">
+        <h1 style="margin-top:10px;margin-bottom:10px;"><%- header %></h1>
+        <div class="container" id="upcoming_events">
+          <div class="row mb-10">
+        <% if (data) {
+            var ncards='';
+            data.forEach(function(event){
+              var t = Date.parse(event.start_date_time);
+              var formatD = parseDate(t);
+              ncards += '<div class="col-md-4 mb-4">'
+                      + '<div class="card mb-3 shadow-sm text-white bg-dark">'
+                      + '<div class="card-body">'
+                      + '<h4 class="card-title">'+event.event_title+'</h4>'
+                      + '<p class="card-text"><small>'+formatD+'</small></p>'
+                      + '<p class="card-text">'+event.description+'</p>'
+                      + '</div><div class="card-footer">'
+                      + '<div class="d-flex justify-content-between align-items-center">'
+                      + '<p>Contact: '+event.contact+'</p>'
+                      + '</div></div></div></div>';
+            }) %>
+            <%- ncards %>
+        <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

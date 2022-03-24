@@ -1,0 +1,62 @@
+ul {list-style-type: none;}
+
+.month {
+  padding: 4% 2%;
+  width: 100%;
+  background: #cfb87c;
+  text-align: center;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+}
+
+.month .next {
+  float: right;
+}
+
+.weekdays {
+  font-size: 0px; /* This is added to remove the space between the weekdays*/
+  margin: 0;
+  padding: 10px 0%;
+  background-color:#a2a4a3;
+}
+
+.weekdays li {
+  font-size: 16px;
+  display: inline-block;
+  width: 13.6%;
+  color: #585a5c;
+  text-align: center;
+}
+
+#calendarDays {
+  font-size: 0px;
+  display: inline-block;
+  width: 100%;
+}
+
+#calendarDays .day {
+  font-size: 16px;
+  width: 13.6%;
+  padding: 2% 0%;
+  display: inline-block;
+  text-align: center;
+}
+
+#calendarDays .day .blank {
+  font-size: 16px;
+  width: 13.6%;
+}

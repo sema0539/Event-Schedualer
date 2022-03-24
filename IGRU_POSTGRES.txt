@@ -1,0 +1,56 @@
+DROP TABLE IF EXISTS organizations CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS archives CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS saved_events CASCADE;
+
+CREATE TABLE IF NOT EXISTS organizations(
+  organization_id SERIAL,
+  org_name VARCHAR(50),
+  contact VARCHAR(50),
+  upcoming_events INT[],
+  PRIMARY KEY(organization_id, contact)
+);
+
+CREATE TABLE IF NOT EXISTS events (
+  event_id SERIAL PRIMARY KEY,
+  event_title VARCHAR(50),
+  start_date_time TIMESTAMP NOT NULL,
+  location VARCHAR(50),
+  contact VARCHAR(50),
+  attribute SMALLINT,
+  max_size SMALLINT,
+  organization_id SERIAL,
+  FOREIGN KEY (organization_id, contact) REFERENCES organizations(organization_id, contact),
+  current_attending SMALLINT DEFAULT 0,
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS archives (
+  archive_id SERIAL PRIMARY KEY,
+  event_id SERIAL,
+  FOREIGN KEY (event_id) REFERENCES events(event_id),
+  last_update TIMESTAMP
+);
+
+//
+// DO NOT RUN ANY BELOW
+//
+
+CREATE TABLE IF NOT EXISTS users (
+  user_id SERIAL PRIMARY KEY,
+  email VARCHAR(255) NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  saved_events INT[]
+);
+
+CREATE TABLE IF NOT EXISTS saved_events (
+  user_id SERIAL,
+  event_id SERIAL,
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (event_id) REFERENCES events(event_id),
+  PRIMARY KEY (user_id, event_id),
+  timesaved TIMESTAMP
+);

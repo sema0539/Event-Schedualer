@@ -1,0 +1,64 @@
+<%- include ("../partials/header") %>
+  <body>
+    <!-- <script>
+      function validate() {
+        var pass1 = document.signup.psw.value;
+        var pass2 = document.signup.cpsw.value;
+        if (pass1 != pass2) {
+          alert('Passwords must match');
+          return false;
+        }
+        return true;
+      }
+    </script> -->
+    <%- include ("../partials/navbar") %>
+    <div class="w3-container">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-center modal-title">Sign Up page</h4>
+          </div>
+          <form class="modal-body" action="/signup" method="post" name="signup" onsubmit="validate()">
+            <div class="form-group">
+              <input type="text" class="form-control" name="firstName" placeholder="First Name"
+              required="required">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="lastName" placeholder="Last Name"
+              required="required">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="email" placeholder="example@gmail.com"
+              required="required">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="username" placeholder="Username"
+              required="required">
+            </div>
+            <div class="form-group">
+              <input id="psw" type="password" class="form-control" name="password" placeholder="Password"
+              required="required">
+            </div>
+            <!-- <div class="form-group">
+              <input id="cpsw" type="password" class="form-control" name="confirm password"
+              placeholder="Confirm Password" required="required">
+            </div> -->
+            <div class="form-group">
+              <button id="my_submit_button" class="btn btn-primary btn-block login-btn">Sign Up</button>
+            </div>
+          </form>
+          <!-- <div class="modal-footer">
+            <div id="message" style="display:block;">
+              <h3>Password must contain the following:</h3>
+              <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+              <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+              <p id="number" class="invalid">A <b>number</b></p>
+              <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+              <p id="match" class="invalid">Password and Confirm Password Match</p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<%- include ("../partials/header") %>
+  <body>
+    <%- include ("../partials/navbar") %>
+    <div class="w3-container">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-center modal-title">Registration page</h4>
+          </div>
+          <form class="modal-body" action="/registration" method="post">
+          <% if (!logged_in) { %>
+            <%- "<p>Must be signed in to register organizations</p>" %>
+          <% } %>
+            <div class="form-group">
+              <input id="orgName" type="text" class="form-control" name="org_name" placeholder="Organization" required="required">
+            </div>
+            <div class="form-group">
+              <input id="contact" type="text" class="form-control" name="contact" placeholder="placeholder@email"
+                required="required">
+            </div>
+          <!--<div class="form-group">
+            <input id="upcoming" type="text" class="form-control" name="upcoming_events" placeholder="# of events"
+                required="required">
+          </div> -->
+            <div class="form-group">
+              <button id="submit_button" class="btn btn-primary"
+              <% if (!logged_in) { %>
+                <%- "disabled" %>
+              <% } %>
+              >Submit</button>
+            </div>
+            <div class="form-group">
+              <a id="addOrganization" class="btn btn-primary" href="/addEvent">Add Event</a>
+            </div>
+            <% if (response) {
+              var response_message = "<p>"+response+"</p>"; %>
+              <%- response_message %>
+                <% if (err) {
+                  var error_message = "";
+                  if (err.code == 23505) {
+                    error_message = "<p class='col-sm-4'>Duplicate Organization</p>";
+                  } %>
+                <%- error_message %>
+              <% } %>
+          <% } %>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

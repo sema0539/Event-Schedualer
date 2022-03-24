@@ -1,0 +1,31 @@
+<%- include ("../partials/header") %>
+  <body>
+    <%- include ("../partials/navbar") %>
+    <div class="w3-container">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-center modal-title">Login page</h4>
+          </div>
+          <form class="modal-body" action="/login" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control" name="username" placeholder="Username"
+                  required="required">
+            </div>
+            <div class="form-group">
+              <input id="psw" type="password" class="form-control" name="password" placeholder="Password"
+                  required="required">
+            </div>
+            <div class="form-group">
+              <button id="my_submit_button" class="btn btn-primary btn-block login-btn">Sign in</button>
+            </div>
+          </form>
+          <% if (response) {
+            var res = "<div class='modal-body'><h4>"+response+"</h4></div>" %>
+            <%- res %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

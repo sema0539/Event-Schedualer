@@ -1,0 +1,9 @@
+INSERT INTO organizations(org_name, contact)
+VALUES
+('EWB', 'ewb.colorado@gmail.com'),
+('Leeds Consulting Group', 'leedsconsultinggroup@colorado.edu');
+
+INSERT INTO events(event_title, start_date_time, location, contact, organization_id, attribute, max_size, current_attending, description)
+VALUES
+('EWB Nepal Presentation', '2020-04-25 12:00:00', 'Virtual Zoom', 'ewb.colorado@gmail.com', 1, 1, 200, 50, 'Learn about EWB Nepal!'),
+('Leeds Consulting Group', '2020-04-27 15:00:00', 'Virtual Hangouts', 'leedsconsultinggroup@colorado.edu', 2, 1, 200, 50, 'Learn about LCG!');

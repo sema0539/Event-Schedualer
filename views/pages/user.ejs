@@ -1,0 +1,95 @@
+<%- include ("../partials/header") %>
+  <body onload="initialize()">
+<%- include ("../partials/navbar") %>
+    <div class="month">
+      <ul>
+        <li onclick="cycleLeft()" class="prev"><button>&#10094;</button></li> <!-- These are the codes for the left and right arrows-->
+        <li onclick="cycleRight()" class="next"><button>&#10095;</button></li>
+        <li id="monthTitle" style="font-size:18px">Whoops</li>
+      </ul>
+    </div>
+    <ul class="weekdays">
+      <li>Su</li>
+      <li>Mo</li>
+      <li>Tu</li>
+      <li>We</li>
+      <li>Th</li>
+      <li>Fr</li>
+      <li>Sa</li>
+    </ul>
+    <div id="calendarDays">
+    </div>
+    <script defer>
+      var months = {
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10: "October",
+        11: "November",
+        12: "December"
+      };
+      var date = new Date();
+      //getDate(), getFullYear(), getMonth(), getDay()
+      function initialize() {
+        loadCalendarDays(date.getMonth()+1,date.getFullYear())
+      }
+      function cycleLeft() {
+        var month = date.getMonth() + 1;
+        var tYear = date.getFullYear();
+        if (month == 1) {
+          month = 12;
+          tYear = tYear - 1;
+          date.setYear(tYear);
+        } else {
+          month = month - 1;
+        }
+        date.setMonth(month - 1);
+        loadCalendarDays(month, tYear);
+      }
+      function cycleRight() {
+        var month = date.getMonth() + 1;
+        var tYear = date.getFullYear();
+        if (month == 12) {
+          month = 1;
+          tYear = tYear + 1;
+          date.setYear(tYear);
+        } else {
+          month = month + 1;
+        }
+        date.setMonth(month - 1);
+        loadCalendarDays(month, tYear);
+      }
+      function daysInMonth(month, year) {
+        var d = new Date(year, month, 0);
+        return d.getDate();
+      }
+
+      function loadCalendarDays(month, year) {
+        var cD = document.getElementById("calendarDays");
+        cD.innerHTML = "";
+        document.getElementById("monthTitle").innerHTML = months[month] + " " + year;
+        var size = daysInMonth(month, year);
+        var dayI = date.getDate();
+        var offset = (new Date(year, (month-1), 1)).getDay();
+        for (var i = 0; i < offset; ++i) {
+          var d = document.createElement("div");
+          d.classList.add("day");
+          d.classList.add("blank");
+          cD.appendChild(d);
+        }
+        for (var i = 1; i <= size; ++i) {
+          var d = document.createElement("div");
+          d.classList.add("day");
+          d.innerHTML = i;
+          cD.appendChild(d);
+        }
+      }
+    </script>
+  </body>
+</html>

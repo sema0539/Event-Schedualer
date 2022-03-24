@@ -1,0 +1,82 @@
+<%- include ("../partials/header") %>
+  <body>
+    <%- include ("../partials/navbar") %>
+    <% function parseDate(time) {
+      var date = new Date(time);
+      var final = '';
+      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      final = days[date.getDay()];
+      final += ", " + months[date.getMonth()];
+      final += " " + date.getDate();
+      final += ", " + date.getFullYear();
+      var hour = date.getHours();
+      console.log(hour);
+      if (hour == 0) {
+        hour = 12;
+      } else if (hour > 12) {
+        hour -= 12;
+      }
+      console.log(hour);
+      var pf = 'AM';
+      if (date.getHours() > 11) {
+        pf = 'PM';
+      }
+      final += " at " + hour;
+      var minutes = date.getMinutes();
+      if (minutes == 0) {
+        minutes = "00";
+      }
+      final += ":" +minutes+ " " + pf;
+      return final;
+    } %>
+    <br>
+    <br>
+    <script>
+    function updateSearch() {
+      var input = document.getElementById('searchbar');
+      var filter = input.value.toUpperCase();
+      var search_body = document.getElementById('search_parent').children;
+      for (var i = 0; i < search_body.length; ++i) {
+        var search_object = search_body[i];
+        var title = search_object.children[0].children[0].innerHTML;
+        if (title.toUpperCase().indexOf(filter) > -1) {
+          search_object.style.display = "";
+        } else {
+          search_object.style.display = "none";
+        }
+      }
+    }
+    </script>
+   <div class="row">
+    <div class="column left">
+    </div>
+      <div class="column right">
+        <div class="col text-center">
+          <div class="form-group">
+            <input type="text" onkeyup="updateSearch()" class="form-control" id="searchbar" placeholder="Search">
+             <a class="btn btn-primary" href="addEvent">Add Event</a>
+          </div>
+        </div>
+        <div id="search_parent">
+        <% if (events) {
+          events.forEach( function (event) {
+            var t = Date.parse(event.start_date_time);
+            var format = parseDate(t);
+            console.log(event.start_date_time);
+            console.log(format);
+            var card = '<div class="card search_element">';
+            card += "<div class='card-body'>";
+            card += "<h5 class='card-title'>"+event.event_title+"</h5>";
+            card += "<p class='card-text'>"+format+"</p>";
+            card += "<p class='card-text'>"+event.description+"</p>";
+            card += "<a href='#' class='btn btn-primary'>Add to Calendar</a>";
+            card += "</div></div>"; %>
+            <%- card %>
+          <% })
+        } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
